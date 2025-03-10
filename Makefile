@@ -16,6 +16,13 @@ NAME = libparse.a
 INCLUDE_DIR = include/
 
 SRC_FILES =	src/ast/ast_create.c					\
+			src/lexer/lexer_consume.c				\
+			src/lexer/lexer_get.c					\
+			src/lexer/lexer_load_src.c				\
+			src/lexer/lexer_make_argument.c			\
+			src/lexer/lexer_make_generic.c			\
+			src/lexer/lexer_make_string.c			\
+			src/lexer/lexer_scan.c					\
 			src/parser/parse_line.c					\
 			src/token/token_create.c				\
 			src/token/token_delete.c				\

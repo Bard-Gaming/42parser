@@ -14,6 +14,10 @@
 typedef enum {
     TT_ERROR,
 
+    // Single char:
+    TT_SEMICOLON,
+
+    TT_ARGUMENT,
 } token_type_t;
 
 
