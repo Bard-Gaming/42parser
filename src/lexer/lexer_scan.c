@@ -24,6 +24,10 @@ static token_t *get_scanned_token(lexer_t *lexer)
     case '"':
     case '\'':
         return lexer_make_string(lexer);
+    case '(':
+        return lexer_make_generic(lexer, TT_LPAREN);
+    case ')':
+        return lexer_make_generic(lexer, TT_RPAREN);
     case ';':
         return lexer_make_generic(lexer, TT_SEMICOLON);
     default:

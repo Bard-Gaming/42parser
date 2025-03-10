@@ -11,12 +11,19 @@
 #include <stdbool.h>
 
 
-static bool is_argument_end(char c)
+static bool is_alphanumeric(char c)
 {
-    static const char *non_arg_chars = ";&| \t\n\"'";
-    const char *current = non_arg_chars;
+    return
+        ('a' <= c && c <= 'z') ||
+        ('A' <= c && c <= 'Z') ||
+        ('0' <= c && c <= '9');
+}
 
-    if (c == '\0')
+static bool is_argument_char(char c)
+{
+    const char *current = ARGUMENT_NON_ALPHA_NUM_CHARS;
+
+    if (is_alphanumeric(c))
         return true;
     while (*current != '\0') {
         if (c == *current)
@@ -28,7 +35,7 @@ static bool is_argument_end(char c)
 
 token_t *lexer_make_argument(lexer_t *lexer)
 {
-    while (!is_argument_end(*lexer->current))
+    while (is_argument_char(*lexer->current))
         lexer->current++;
     return token_create(
         TT_ARGUMENT, lexer->start,

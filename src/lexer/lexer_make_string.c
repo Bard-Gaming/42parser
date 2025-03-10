@@ -38,6 +38,6 @@ token_t *lexer_make_string(lexer_t *lexer)
     lexer->current++;
     return token_create(
         TT_ARGUMENT, lexer->start,
-        lexer->current - 2 - lexer->start
+        lexer->current - 1 - lexer->start
     );
 }

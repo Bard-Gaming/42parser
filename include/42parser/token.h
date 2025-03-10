@@ -9,12 +9,15 @@
 #ifndef PARSER_TOKEN_H
     #define PARSER_TOKEN_H
     #include <stddef.h>
+    #define ARGUMENT_NON_ALPHA_NUM_CHARS "%./+=-@!^$?:"
 
 
 typedef enum {
     TT_ERROR,
 
     // Single char:
+    TT_LPAREN,
+    TT_RPAREN,
     TT_SEMICOLON,
 
     TT_ARGUMENT,
