@@ -1,9 +1,12 @@
 # 42parser
 
 ## Project Description
+42parser is a parser library aimed at making
+the implementation of the [42sh project](https://github.com/Bard-Gaming/42sh)
+easier.
 
 ## Compile Instructions
-To compile the standard version of 42parser,
+To compile the standard version of the library,
 simply run make:
 
 ```bash
