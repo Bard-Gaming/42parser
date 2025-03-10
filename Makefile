@@ -15,7 +15,11 @@ NAME = libparse.a
 
 INCLUDE_DIR = include/
 
-SRC_FILES =	src/ast/ast_create.c			\
+SRC_FILES =	src/ast/ast_create.c					\
+			src/parser/parse_line.c					\
+			src/token/token_create.c				\
+			src/token/token_delete.c				\
+			src/token/token_value.c					\
 
 OBJ_FILES = $(SRC_FILES:.c=.o)
 
