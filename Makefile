@@ -26,7 +26,9 @@ SRC_FILES =	src/ast/ast_command_append.c			\
 			src/lexer/lexer_make_generic.c			\
 			src/lexer/lexer_make_string.c			\
 			src/lexer/lexer_scan.c					\
+			src/parser/parse_command.c				\
 			src/parser/parse_line.c					\
+			src/parser/parser_next.c				\
 			src/token/token_create.c				\
 			src/token/token_delete.c				\
 			src/token/token_value.c					\
