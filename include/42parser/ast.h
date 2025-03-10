@@ -10,15 +10,29 @@
 
 #ifndef PARSER_ABSTRACT_SYNTAX_NODE_H
     #define PARSER_ABSTRACT_SYNTAX_NODE_H
+    #include <42parser/token.h>
+    #include <stddef.h>
 
 
 typedef enum {
-    AT_ERROR,  // preferred first (null initialization)
+    AT_ERROR,    // Error node
 
-    AT_ARGUMENT,
+    AT_COMMAND,        // <argument>+
 
-    AT_COUNT,  // keep last
+    // Operations:
+    AT_COMMAND_CHAIN,  // <command>  ; <command>
+    AT_OPERATION_AND,  // <command> && <command>
+    AT_OPERATION_OR,   // <command> || <command>
+
+    AT_COUNT,          // keep last
 } ast_type_t;
+
+
+typedef struct {
+    char **args;
+    size_t arg_count;
+    size_t arg_capacity;
+} ast_command_t;
 
 
 typedef struct {
@@ -29,6 +43,12 @@ typedef struct {
 
 ast_t *ast_create(ast_type_t type);
 void ast_delete(ast_t *ast);
+
+
+// Command:
+ast_command_t *ast_command_create(void);
+void ast_command_append(ast_command_t *command, const token_t *token);
+void ast_command_delete(ast_command_t *command);
 
 
 #endif
