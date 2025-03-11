@@ -19,11 +19,20 @@ typedef struct {
 } parser_t;
 
 
+// User entry:
+ast_t *parse_line(const char *line);
+
+// Parser utils:
 void parser_next(parser_t *parser);
 
-// Parsing pipeline (highest precedence to lowest)
-ast_t *parse_line(const char *line);
+// Parser grammar (highest to lowest precedence):
+ast_t *parse_statement(parser_t *parser);
+ast_t *parse_atom(parser_t *parser);
+
+// Parser rules:
+ast_t *parse_operation(parser_t *parser);
 ast_t *parse_command(parser_t *parser);
+ast_t *parse_parenthesis(parser_t *parser);
 
 
 #endif

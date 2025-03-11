@@ -20,6 +20,7 @@ SRC_FILES =	src/ast/ast_command_append.c			\
 			src/ast/ast_command_delete.c			\
 			src/ast/ast_create.c					\
 			src/ast/ast_delete.c					\
+			src/ast/ast_print.c						\
 			src/lexer/lexer_consume.c				\
 			src/lexer/lexer_get.c					\
 			src/lexer/lexer_load_src.c				\
@@ -27,8 +28,12 @@ SRC_FILES =	src/ast/ast_command_append.c			\
 			src/lexer/lexer_make_generic.c			\
 			src/lexer/lexer_make_string.c			\
 			src/lexer/lexer_scan.c					\
+			src/parser/parse_atom.c					\
 			src/parser/parse_command.c				\
 			src/parser/parse_line.c					\
+			src/parser/parse_operation.c			\
+			src/parser/parse_parenthesis.c			\
+			src/parser/parse_statement.c			\
 			src/parser/parser_next.c				\
 			src/token/token_create.c				\
 			src/token/token_delete.c				\

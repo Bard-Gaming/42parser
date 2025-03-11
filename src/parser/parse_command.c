@@ -12,6 +12,7 @@
 
 /*
 ** Parses a command.
+** Returns an error node on error.
 */
 ast_t *parse_command(parser_t *parser)
 {

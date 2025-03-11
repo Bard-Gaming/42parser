@@ -21,5 +21,6 @@ ast_t *ast_create(ast_type_t type)
     if (node == NULL)
         return NULL;
     node->type = type;
+    node->data = NULL;
     return node;
 }
