@@ -12,15 +12,15 @@
 
 static void print_indent(unsigned short indent_amount)
 {
-    const char *indent_line = "|---";
+    const char *indent_line = " |- ";
 
     if (indent_amount == 0)
         return;
-    for (unsigned int i = 0; i < (indent_amount - 1) * 4; i++)
-        write(1, " ", 1);
-    write(1, "|\n", 2);
-    for (unsigned int i = 0; i < (indent_amount - 1) * 4; i++)
-        write(1, " ", 1);
+    for (unsigned int i = 0; i < indent_amount; i++)
+        write(1, " |  ", 4);
+    write(1, "\n", 1);
+    for (unsigned int i = 0; i < indent_amount - 1; i++)
+        write(1, " |  ", 4);
     write(1, indent_line, 4);
 }
 
@@ -28,10 +28,10 @@ static void print_type(ast_type_t type)
 {
     size_t type_len;
     static const char *type_str[AT_COUNT] = {
-        "Error Node", "Command Node",
-        "Unary Job Operation", "Command Chain Node",
-        "Operation <&> Node", "Operation <&&> Node",
-        "Operation <|> Node", "Operation <||> Node",
+        "Error", "Command",
+        "Unary <&>", "Operation <;>",
+        "Operation <&>", "Operation <&&>",
+        "Operation <|>", "Operation <||>",
     };
 
     for (type_len = 0; type_str[type][type_len] != '\0'; type_len++);
