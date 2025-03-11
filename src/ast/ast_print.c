@@ -29,8 +29,9 @@ static void print_type(ast_type_t type)
     size_t type_len;
     static const char *type_str[AT_COUNT] = {
         "Error Node", "Command Node",
-        "Command Chain Node", "&& Operation Node",
-        "|| Operation Node",
+        "Unary Job Operation", "Command Chain Node",
+        "Operation <&> Node", "Operation <&&> Node",
+        "Operation <|> Node", "Operation <||> Node",
     };
 
     for (type_len = 0; type_str[type][type_len] != '\0'; type_len++);
@@ -66,8 +67,11 @@ static void print_node_data(const ast_t *ast, unsigned short depth)
         print_command(ast);
         return;
     case AT_COMMAND_CHAIN:
-        print_operation(ast, depth);
-        return;
+    case AT_OPERATION_PIPE:
+    case AT_OPERATION_AND:
+    case AT_OPERATION_JOB:
+    case AT_OPERATION_OR:
+        return print_operation(ast, depth);
     default:
         return;
     }
@@ -86,5 +90,4 @@ void ast_print_node(const ast_t *ast, unsigned short depth)
 void ast_print(const ast_t *ast)
 {
     ast_print_node(ast, 0);
-    write(1, "\n", 1);
 }

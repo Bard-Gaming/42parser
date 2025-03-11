@@ -3,7 +3,7 @@
 ** Project - 42parser
 ** File description:
 ** Implementation for
-** parse_operation
+** parse_binary_operation
 */
 
 #include <42parser/parser.h>
@@ -18,6 +18,14 @@ static ast_type_t get_operation_type(parser_t *parser)
     switch (parser->current->type) {
     case TT_SEMICOLON:
         return AT_COMMAND_CHAIN;
+    case TT_AND:
+        return AT_OPERATION_AND;
+    case TT_JOB:
+        return AT_OPERATION_JOB;
+    case TT_OR:
+        return AT_OPERATION_OR;
+    case TT_PIPE:
+        return AT_OPERATION_PIPE;
     default:
         return AT_ERROR;
     }
@@ -34,7 +42,7 @@ static ast_t *make_operation(ast_t *left, ast_t *right, ast_type_t type)
     return operation_node;
 }
 
-ast_t *parse_operation(parser_t *parser)
+ast_t *parse_binary_operation(parser_t *parser)
 {
     ast_t *left_operand = parse_atom(parser);
     ast_t *right_operand;

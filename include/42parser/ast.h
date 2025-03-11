@@ -15,13 +15,17 @@
 
 
 typedef enum {
-    AT_ERROR,    // Error node
+    AT_ERROR,          // <generic error>
 
+    // Atoms:
     AT_COMMAND,        // <argument>+
 
     // Operations:
+    AT_UNARY_JOB,      // <command>  &
     AT_COMMAND_CHAIN,  // <command>  ; <command>
+    AT_OPERATION_JOB,  // <command>  & <command>
     AT_OPERATION_AND,  // <command> && <command>
+    AT_OPERATION_PIPE, // <command>  | <command>
     AT_OPERATION_OR,   // <command> || <command>
 
     AT_COUNT,          // keep last
@@ -53,7 +57,10 @@ void ast_delete(ast_t *ast);
 
 // AST Utils:
 void ast_print(const ast_t *ast);
+
+// Implementation functions (need to be forward declared for double recursion)
 void ast_print_node(const ast_t *ast, unsigned short depth);
+void ast_delete_binop_data(void *data);
 
 // Command:
 ast_command_t *ast_command_create(void);

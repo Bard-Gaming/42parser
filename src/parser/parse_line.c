@@ -12,10 +12,12 @@
 
 ast_t *parse_line(const char *line)
 {
+    ast_t *result;
     parser_t parser;
 
     lexer_load_src(line);
-    parser.current = lexer_scan();
-    parser.next = lexer_scan();
-    return parse_statement(&parser);
+    parser_init(&parser);
+    result = parse_statement(&parser);
+    parser_term(&parser);
+    return result;
 }
