@@ -19,6 +19,12 @@ typedef enum {
     TT_LPAREN,
     TT_RPAREN,
     TT_SEMICOLON,
+    TT_JOB,
+    TT_PIPE,
+
+    // Two chars:
+    TT_AND,
+    TT_OR,
 
     TT_ARGUMENT,
 } token_type_t;

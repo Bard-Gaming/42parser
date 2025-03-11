@@ -18,6 +18,22 @@ static bool is_whitespace(char c)
         c == ' ';
 }
 
+static token_t *scan_operations(lexer_t *lexer)
+{
+    switch (*lexer->start) {
+    case '&':
+        return *(lexer->start + 1) == '&' ?
+            lexer_make_operator(lexer, TT_AND) :
+            lexer_make_generic(lexer, TT_JOB);
+    case '|':
+        return *(lexer->start + 1) == '|' ?
+            lexer_make_operator(lexer, TT_OR) :
+            lexer_make_generic(lexer, TT_PIPE);
+    default:
+        return lexer_make_argument(lexer);
+    }
+}
+
 static token_t *get_scanned_token(lexer_t *lexer)
 {
     switch (*lexer->start) {
@@ -31,7 +47,7 @@ static token_t *get_scanned_token(lexer_t *lexer)
     case ';':
         return lexer_make_generic(lexer, TT_SEMICOLON);
     default:
-        return lexer_make_argument(lexer);
+        return scan_operations(lexer);
     }
 }
 
