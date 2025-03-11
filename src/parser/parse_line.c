@@ -11,5 +11,5 @@
 
 ast_t *parse_line(const char *line)
 {
-    return NULL;
+
 }

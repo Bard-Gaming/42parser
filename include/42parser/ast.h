@@ -41,6 +41,9 @@ typedef struct {
 } ast_t;
 
 
+typedef void (*ast_delete_fnc_t)(void *data);
+
+
 ast_t *ast_create(ast_type_t type);
 void ast_delete(ast_t *ast);
 

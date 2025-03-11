@@ -19,6 +19,7 @@ SRC_FILES =	src/ast/ast_command_append.c			\
 			src/ast/ast_command_create.c			\
 			src/ast/ast_command_delete.c			\
 			src/ast/ast_create.c					\
+			src/ast/ast_delete.c					\
 			src/lexer/lexer_consume.c				\
 			src/lexer/lexer_get.c					\
 			src/lexer/lexer_load_src.c				\
