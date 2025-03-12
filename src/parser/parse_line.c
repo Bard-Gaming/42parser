@@ -28,6 +28,7 @@ ast_t *parse_line(const char *line)
     ast_t *result;
     parser_t parser;
 
+    parser_errno_set(PE_NONE);
     lexer_load_src(line);
     parser_init(&parser);
     result = parse_statement(&parser);
