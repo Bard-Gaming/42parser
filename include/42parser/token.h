@@ -16,6 +16,7 @@ typedef enum {
     TT_ERROR,
 
     // Single char:
+    TT_AMPERSAND,
     TT_LPAREN,
     TT_RPAREN,
     TT_SEMICOLON,
@@ -26,7 +27,9 @@ typedef enum {
     TT_AND,
     TT_OR,
 
-    // Unknown quantity:
+    // Dynamic size:
+    TT_REDIRECT_WRITE,
+    TT_REDIRECT_APPEND,
     TT_ARGUMENT,
 
     TT_EOF,
