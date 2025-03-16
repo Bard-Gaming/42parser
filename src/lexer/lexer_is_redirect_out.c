@@ -3,7 +3,7 @@
 ** Project - 42parser
 ** File description:
 ** Implementation for
-** lexer_contains_redirect
+** lexer_is_redirect_out
 */
 
 #include <42parser/lexer.h>
