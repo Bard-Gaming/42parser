@@ -22,20 +22,16 @@ static void scan_file_descriptor(lexer_t *lexer)
 */
 token_t *lexer_make_redirect_out(lexer_t *lexer)
 {
-    token_type_t type = TT_REDIRECT_WRITE;
-
     scan_file_descriptor(lexer);
     lexer->current++;
-    if (*lexer->current == '>') {
-        type = TT_REDIRECT_APPEND;
+    if (*lexer->current == '>')
         lexer->current++;
-    }
     if (*lexer->current == '&') {
         lexer->current++;
         scan_file_descriptor(lexer);
     }
     return token_create(
-        type, lexer->start,
+        TT_REDIRECT_OUT, lexer->start,
         lexer->start - lexer->current
     );
 }

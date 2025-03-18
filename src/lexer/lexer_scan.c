@@ -18,7 +18,7 @@ static token_t *scan_operations(lexer_t *lexer)
     case '&':
         return *(lexer->start + 1) == '&' ?
             lexer_make_operator(lexer, TT_AND) :
-            lexer_make_generic(lexer, TT_JOB);
+            lexer_make_generic(lexer, TT_AMPERSAND);
     case '|':
         return *(lexer->start + 1) == '|' ?
             lexer_make_operator(lexer, TT_OR) :

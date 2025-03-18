@@ -20,7 +20,6 @@ typedef enum {
     TT_LPAREN,
     TT_RPAREN,
     TT_SEMICOLON,
-    TT_JOB,
     TT_PIPE,
 
     // Two chars:
@@ -28,8 +27,8 @@ typedef enum {
     TT_OR,
 
     // Dynamic size:
-    TT_REDIRECT_WRITE,
-    TT_REDIRECT_APPEND,
+    TT_REDIRECT_IN,
+    TT_REDIRECT_OUT,
     TT_ARGUMENT,
 
     TT_EOF,
