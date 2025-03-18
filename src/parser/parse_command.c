@@ -39,7 +39,8 @@ static void parse_argument(parser_t *parser, ast_command_t *command)
     parser_next(parser);
 }
 
-static void parse_output_file(parser_t *parser, ast_command_t *command, int redirect_fd)
+static void parse_output_file(parser_t *parser,
+    ast_command_t *command, int redirect_fd)
 {
     parser_next(parser);
     if (parser->current->type != TT_ARGUMENT) {
