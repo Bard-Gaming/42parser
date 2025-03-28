@@ -13,7 +13,7 @@ CFLAGS =
 
 NAME = libparse.a
 
-INCLUDE_DIR = include/
+INCLUDE_DIRS = -I./include
 
 SRC_FILES =	src/ast/ast_command_append.c					\
 			src/ast/ast_command_create.c					\
@@ -58,12 +58,12 @@ SRC_FILES =	src/ast/ast_command_append.c					\
 
 OBJ_FILES = $(SRC_FILES:.c=.o)
 
-.PHONY = all debug clean fclean re
+.PHONY = all debug sanitize clean fclean re
 
 all: $(NAME)
 
 %.o: %.c
-	@$(CC) -c $< -I./$(INCLUDE_DIR) $(CFLAGS) -o $@
+	@$(CC) -c $< $(INCLUDE_DIRS) $(CFLAGS) -o $@
 
 $(NAME): $(OBJ_FILES)
 	@ar rc $(NAME) $(OBJ_FILES)
