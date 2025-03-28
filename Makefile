@@ -42,11 +42,13 @@ SRC_FILES =	src/ast/ast_command_append.c					\
 			src/lexer/lexer_make_redirect_out.c				\
 			src/lexer/lexer_make_string.c					\
 			src/lexer/lexer_scan.c							\
+			src/parser/parse_atom.c							\
 			src/parser/parse_binary_operation.c				\
 			src/parser/parse_command.c						\
 			src/parser/parse_expression.c					\
 			src/parser/parse_input.c						\
 			src/parser/parse_parenthesis.c					\
+			src/parser/parse_pipeline.c						\
 			src/parser/parse_program.c						\
 			src/parser/parse_statement.c					\
 			src/parser/parser_init.c						\
