@@ -81,3 +81,13 @@ Test(test_redirections, pipe_no_left)
     cr_assert_eq(ast, NULL);
     cr_assert_eq(P_ERRNO, PE_NULL_COMMAND);
 }
+
+Test(test_redirections, invalid_pipe_compound)
+{
+    ast_t *ast;
+    const char *input = "(ls | sort | cat |) | echo hello";
+
+    ast = parse_input(input);
+    cr_assert_eq(ast, NULL);
+    cr_assert_eq(P_ERRNO, PE_NULL_COMMAND);
+}
