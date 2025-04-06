@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2025
 ** Project - 42parser
 ** File description:
-** Unit tests for redirection
+** Unit tests for pipe
 ** syntax.
 */
 
@@ -11,55 +11,36 @@
 #include <42parser/error.h>
 
 
+
 //////////////////////////////////////////////////
 //                                              //
 //                 PASSING TESTS                //
 //                                              //
 //////////////////////////////////////////////////
-Test(test_redirections, redir_out_file)
+Test(test_pipes, simple_pipe)
 {
     ast_t *ast;
-    const char *input = "echo test > file arg\n";
+    const char *input = "echo bob | cat";
 
     ast = parse_input(input);
     cr_assert_neq(ast, NULL);
     cr_assert_eq(P_ERRNO, PE_NONE);
 }
 
-Test(test_redirections, redir_out_fd)
+Test(test_pipes, simple_pipeline)
 {
     ast_t *ast;
-    const char *input = "echo test >&1 arg\n";
+    const char *input = "echo bob | sort | cat | cat | column";
 
     ast = parse_input(input);
     cr_assert_neq(ast, NULL);
     cr_assert_eq(P_ERRNO, PE_NONE);
 }
 
-Test(test_redirections, redir_append_file)
+Test(test_pipes, pipeline_compound)
 {
     ast_t *ast;
-    const char *input = "echo test >> file arg\n";
-
-    ast = parse_input(input);
-    cr_assert_neq(ast, NULL);
-    cr_assert_eq(P_ERRNO, PE_NONE);
-}
-
-Test(test_redirections, redir_input_file)
-{
-    ast_t *ast;
-    const char *input = "cat < file arg";
-
-    ast = parse_input(input);
-    cr_assert_neq(ast, NULL);
-    cr_assert_eq(P_ERRNO, PE_NONE);
-}
-
-Test(test_redirections, redir_input_fd)
-{
-    ast_t *ast;
-    const char *input = "cat <&3 arg";
+    const char *input = "(echo zfile | ls -t | echo haha) | sort";
 
     ast = parse_input(input);
     cr_assert_neq(ast, NULL);
@@ -71,32 +52,32 @@ Test(test_redirections, redir_input_fd)
 //                 FAILING TESTS                //
 //                                              //
 //////////////////////////////////////////////////
-Test(test_redirections, redir_null_command)
+Test(test_redirections, only_pipe)
 {
     ast_t *ast;
-    const char *input = "2>&1\n";
+    const char *input = "|";
 
     ast = parse_input(input);
     cr_assert_eq(ast, NULL);
     cr_assert_eq(P_ERRNO, PE_NULL_COMMAND);
 }
 
-Test(test_redirections, redir_no_file)
+Test(test_redirections, pipe_no_right)
 {
     ast_t *ast;
-    const char *input = "echo test >\n";
+    const char *input = "ls |";
 
     ast = parse_input(input);
     cr_assert_eq(ast, NULL);
-    cr_assert_eq(P_ERRNO, PE_MISSING_REDIRECT_NAME);
+    cr_assert_eq(P_ERRNO, PE_NULL_COMMAND);
 }
 
-Test(test_redirections, redir_append_with_fd)
+Test(test_redirections, pipe_no_left)
 {
     ast_t *ast;
-    const char *input = "echo test >>&2\n";
+    const char *input = "| cat";
 
     ast = parse_input(input);
     cr_assert_eq(ast, NULL);
-    cr_assert_eq(P_ERRNO, PE_APPEND_REDIRECT_WITH_FD);
+    cr_assert_eq(P_ERRNO, PE_NULL_COMMAND);
 }

@@ -62,7 +62,8 @@ OBJ_FILES = $(SRC_FILES:.c=.o)
 
 TEST_NAME = unit_tests
 
-TEST_SRC =	tests/syntax/test_redirections.c				\
+TEST_SRC =	tests/syntax/test_pipes.c						\
+			tests/syntax/test_redirections.c				\
 
 .PHONY = all debug sanitize tests_run clean fclean re
 
@@ -87,11 +88,11 @@ tests_run:
 	@./$(TEST_NAME)
 
 clean:
+	@rm -f $(SRC_FILES:.c=.gcda)
+	@rm -f $(SRC_FILES:.c=.gcno)
 	@rm -f *.gcda
 	@rm -f *.gcno
 	@rm -f $(TEST_NAME)
-	@rm -f $(SRC_FILES:.c=.gcda)
-	@rm -f $(SRC_FILES:.c=.gcno)
 	@rm -f $(OBJ_FILES)
 
 fclean: clean
