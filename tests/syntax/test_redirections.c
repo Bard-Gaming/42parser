@@ -66,6 +66,16 @@ Test(test_redirections, redir_input_fd)
     cr_assert_eq(P_ERRNO, PE_NONE);
 }
 
+Test(test_redirections, heredoc_redir)
+{
+    ast_t *ast;
+    const char *input = "cat << EOF";
+
+    ast = parse_input(input);
+    cr_assert_neq(ast, NULL);
+    cr_assert_eq(P_ERRNO, PE_NONE);
+}
+
 //////////////////////////////////////////////////
 //                                              //
 //                 FAILING TESTS                //
@@ -99,4 +109,14 @@ Test(test_redirections, redir_append_with_fd)
     ast = parse_input(input);
     cr_assert_eq(ast, NULL);
     cr_assert_eq(P_ERRNO, PE_APPEND_REDIRECT_WITH_FD);
+}
+
+Test(test_redirections, heredoc_no_end)
+{
+    ast_t *ast;
+    const char *input = "cat <<";
+
+    ast = parse_input(input);
+    cr_assert_eq(ast, NULL);
+    cr_assert_eq(P_ERRNO, PE_EMPTY_HEREDOC);
 }
