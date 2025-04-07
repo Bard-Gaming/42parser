@@ -99,3 +99,9 @@ fclean: clean
 	@rm -f $(NAME)
 
 re: fclean all
+
+_no_repo:
+	@rm -f README.md
+	@rm -f LICENSE
+	@rm -rf .git
+	@rm -rf tests
