@@ -66,10 +66,8 @@ static void skip_whitespace(lexer_t *lexer)
 ** been loaded, and an error token
 ** on other errors.
 */
-token_t *lexer_scan(void)
+token_t *lexer_scan(lexer_t *lexer)
 {
-    lexer_t *lexer = lexer_get();
-
     lexer->start = lexer->current;
     if (lexer->start == NULL)
         return NULL;

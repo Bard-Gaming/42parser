@@ -28,7 +28,6 @@ SRC_FILES =	src/ast/ast_command_append.c					\
 			src/error/parser_errno.c						\
 			src/error/parser_perror.c						\
 			src/lexer/lexer_consume.c						\
-			src/lexer/lexer_get.c							\
 			src/lexer/lexer_is_argument.c					\
 			src/lexer/lexer_is_redirect_in.c				\
 			src/lexer/lexer_is_redirect_out.c				\
