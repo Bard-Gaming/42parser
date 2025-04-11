@@ -39,8 +39,9 @@ static token_t *get_scanned_token(lexer_t *lexer)
 {
     switch (*lexer->start) {
     case '"':
+        return lexer_make_format_string(lexer);
     case '\'':
-        return lexer_make_string(lexer);
+        return lexer_make_raw_string(lexer);
     case '(':
         return lexer_make_generic(lexer, TT_LPAREN);
     case ')':

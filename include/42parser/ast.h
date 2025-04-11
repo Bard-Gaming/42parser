@@ -19,21 +19,29 @@
 
 
 typedef enum {
-    AT_ERROR,          // <generic error>
+    AT_ERROR,             // <generic error>
+
+    // Sub-atoms:
+    AT_ARGUMENT,          // TT_ARGUMENT (stores char *)
+    AT_RAW_STRING,        // TT_RAW_STRING (stores char *)
+    AT_FORMAT_STRING,     // TT_FORMAT_STRING (stores )
+    AT_REDIRECT_OUT,      // TT_REDIRECT_OUT
+    AT_REDIRECT_IN,       // TT_REDIRECT_OUT
+    AT_REDIRECT_HEREDOC,  // TT_REDIRECT_OUT
 
     // Atoms:
-    AT_COMMAND,        // [<argument>]+
+    AT_COMMAND,           // [<sub-atom>]+ (at least one non-redirection necessary)
 
     // Operations:
-    AT_UNARY_JOB,      // <command>  &
-    AT_OPERATION_JOB,  // <command>  & <command>
-    AT_OPERATION_AND,  // <command> && <command>
-    AT_OPERATION_OR,   // <command> || <command>
-    AT_PIPELINE,       // <command> [| <command>]+
+    AT_UNARY_JOB,         // <command>  &
+    AT_OPERATION_JOB,     // <command>  & <command>
+    AT_OPERATION_AND,     // <command> && <command>
+    AT_OPERATION_OR,      // <command> || <command>
+    AT_PIPELINE,          // <command> [| <command>]+
 
-    AT_PROGRAM,        // [<operation>]+
+    AT_PROGRAM,           // [<operation>]+
 
-    AT_COUNT,          // keep last
+    AT_COUNT,             // keep last
 } ast_type_t;
 
 

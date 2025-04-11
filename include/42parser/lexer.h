@@ -28,15 +28,16 @@ token_t *lexer_scan(lexer_t *lexer);
 // Token generation:
 token_t *lexer_make_generic(lexer_t *lexer, token_type_t type);
 token_t *lexer_make_operator(lexer_t *lexer, token_type_t type);
-token_t *lexer_make_string(lexer_t *lexer);
+token_t *lexer_make_raw_string(lexer_t *lexer);
+token_t *lexer_make_format_string(lexer_t *lexer);
 token_t *lexer_make_redirect_in(lexer_t *lexer);
 token_t *lexer_make_redirect_out(lexer_t *lexer);
 token_t *lexer_make_argument(lexer_t *lexer);
 token_t *lexer_make_error(parser_errno_t error);
 
 // Utils:
-bool lexer_is_whitespace(lexer_t *lexer, char c);
-bool lexer_is_argument(lexer_t *lexer, char c);
+bool lexer_is_whitespace(char c);
+bool lexer_is_argument(char c);
 bool lexer_is_redirect_in(const lexer_t *lexer);
 bool lexer_is_redirect_out(const lexer_t *lexer);
 

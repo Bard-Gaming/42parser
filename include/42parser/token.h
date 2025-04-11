@@ -9,6 +9,8 @@
 #ifndef PARSER_TOKEN_H
     #define PARSER_TOKEN_H
 
+    #define RESERVED_CHARS "&()|&<>;\n\"'"
+
     #define _RANGE(val, start, end) (start <= val && val <= end)
     #define IS_REDIRECT(t) _RANGE(t, TT_REDIRECT_IN, TT_REDIRECT_APPEND)
     #define IS_ARGUMENT(t) _RANGE(t, TT_ARGUMENT, TT_FORMAT_STRING)
