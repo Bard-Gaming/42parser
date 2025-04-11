@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2025
-** Project - 42sh
+** Project - 42parser
 ** File description:
 ** Unit tests for command
 ** syntax.
@@ -16,7 +16,7 @@
 //                 PASSING TESTS                //
 //                                              //
 //////////////////////////////////////////////////
-Test(test_command, simple_command)
+Test(test_commands, simple_command)
 {
     ast_t *ast;
     const char *input = "echo bob";
@@ -26,7 +26,7 @@ Test(test_command, simple_command)
     cr_assert_eq(P_ERRNO, PE_NONE);
 }
 
-Test(test_command, multiple_commands_nl)
+Test(test_commands, multiple_commands_nl)
 {
     ast_t *ast;
     const char *input =
@@ -39,7 +39,7 @@ Test(test_command, multiple_commands_nl)
 }
 
 
-Test(test_command, multiple_commands_sc)
+Test(test_commands, multiple_commands_sc)
 {
     ast_t *ast;
     const char *input =
@@ -51,7 +51,7 @@ Test(test_command, multiple_commands_sc)
     cr_assert_eq(P_ERRNO, PE_NONE);
 }
 
-Test(test_command, raw_string)
+Test(test_commands, raw_string)
 {
     ast_t *ast;
     const char *input = "echo 'hewwo :3'";
@@ -61,7 +61,7 @@ Test(test_command, raw_string)
     cr_assert_eq(P_ERRNO, PE_NONE);
 }
 
-Test(test_command, format_string)
+Test(test_commands, format_string)
 {
     ast_t *ast;
     const char *input = "echo \"hewwo :3\"";
@@ -76,7 +76,7 @@ Test(test_command, format_string)
 //                 FAILING TESTS                //
 //                                              //
 //////////////////////////////////////////////////
-Test(test_command, unmatched_raw_string)
+Test(test_commands, unmatched_raw_string)
 {
     ast_t *ast;
     const char *input = "echo 'hello\n";
@@ -86,7 +86,7 @@ Test(test_command, unmatched_raw_string)
     cr_assert_eq(P_ERRNO, PE_UNMATCHED_RAW_STRING);
 }
 
-Test(test_command, unmatched_format_string)
+Test(test_commands, unmatched_format_string)
 {
     ast_t *ast;
     const char *input = "echo \"hello";
