@@ -30,7 +30,7 @@ static token_t *scan_operations(lexer_t *lexer)
         return lexer_make_redirect_in(lexer);
     if (lexer_is_redirect_out(lexer))
         return lexer_make_redirect_out(lexer);
-    if (lexer_is_argument(*lexer->start))
+    if (lexer_is_argument_char(*lexer->start))
         return lexer_make_argument(lexer);
     return lexer_make_error(PE_ILLEGAL_CHAR);
 }

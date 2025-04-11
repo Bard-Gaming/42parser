@@ -31,7 +31,7 @@ typedef enum {
     AT_REDIRECT_HEREDOC,  // TT_REDIRECT_HEREDOC
 
     // Atoms:
-    AT_COMMAND,           // [<sub-atom>]+ (at least one non-redirection necessary)
+    AT_COMMAND,           // [<sub-atom>]+ (at least one non-redirection)
     AT_COMPOUND,          // [<statement>]
 
     // Expressions:
@@ -65,6 +65,17 @@ typedef struct {
 } ast_node_buffer_t;
 
 
+typedef struct {
+    int old_fd;       // fd to replace with new fd
+    bool is_path;     // tells whether or not new_fd is a path or a fd
+    union {
+        ast_t *path;  // arg/string node which contains the data
+        int fd;
+    } new_fd;
+    int open_flags;  // flags to open file with (if needed)
+} ast_redirect_t;
+
+
 typedef void (*ast_delete_fnc_t)(void *data);
 
 
@@ -77,6 +88,7 @@ void ast_print(const ast_t *ast);
 // Implementation functions (need to be forward declared for double recursion)
 void ast_print_node(const ast_t *ast, unsigned short depth);
 void ast_delete_binop_data(void *data);
+void ast_redirect_delete(ast_redirect_t *redirect);
 
 // Node buffer:
 ast_node_buffer_t *ast_node_buffer_create(void);

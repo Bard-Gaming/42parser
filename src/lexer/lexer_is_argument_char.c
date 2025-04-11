@@ -3,7 +3,7 @@
 ** Project - 42parser
 ** File description:
 ** Implementation for
-** lexer_is_argument
+** lexer_is_argument_char
 */
 
 #include <42parser/lexer.h>
