@@ -62,7 +62,8 @@ OBJ_FILES = $(SRC_FILES:.c=.o)
 
 TEST_NAME = unit_tests
 
-TEST_SRC =	tests/syntax/test_pipes.c						\
+TEST_SRC =	tests/syntax/test_command.c						\
+			tests/syntax/test_pipes.c						\
 			tests/syntax/test_redirections.c				\
 
 .PHONY = all debug sanitize tests_run clean fclean re _no_repo
