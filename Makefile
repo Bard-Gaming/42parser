@@ -15,16 +15,13 @@ NAME = libparse.a
 
 INCLUDE_DIRS = -I./include
 
-SRC_FILES =	src/ast/ast_command_append.c					\
-			src/ast/ast_command_create.c					\
-			src/ast/ast_command_delete.c					\
-			src/ast/ast_create.c							\
+SRC_FILES =	src/ast/ast_create.c							\
 			src/ast/ast_delete.c							\
 			src/ast/ast_delete_binop_data.c					\
+			src/ast/ast_node_buffer_append.c				\
+			src/ast/ast_node_buffer_create.c				\
+			src/ast/ast_node_buffer_delete.c				\
 			src/ast/ast_print.c								\
-			src/ast/ast_program_append.c					\
-			src/ast/ast_program_create.c					\
-			src/ast/ast_program_delete.c					\
 			src/error/parser_errno.c						\
 			src/error/parser_perror.c						\
 			src/lexer/lexer_consume.c						\

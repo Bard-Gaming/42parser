@@ -11,7 +11,8 @@
 #ifndef PARSER_ABSTRACT_SYNTAX_NODE_H
     #define PARSER_ABSTRACT_SYNTAX_NODE_H
 
-    #define AST_PROG_INIT_CAP 4
+    #define AST_BUFFER_INIT_CAP 4
+    #define AST_BUFFER_GROWTH_FACTOR 1.5f
 
     #include <42parser/token.h>
     #include <stdbool.h>
@@ -25,20 +26,26 @@ typedef enum {
     AT_ARGUMENT,          // TT_ARGUMENT (stores char *)
     AT_RAW_STRING,        // TT_RAW_STRING (stores char *)
     AT_FORMAT_STRING,     // TT_FORMAT_STRING (stores )
-    AT_REDIRECT_OUT,      // TT_REDIRECT_OUT
-    AT_REDIRECT_IN,       // TT_REDIRECT_OUT
-    AT_REDIRECT_HEREDOC,  // TT_REDIRECT_OUT
+    AT_REDIRECT_OUT,      // TT_REDIRECT_OUT or TT_REDIRECT_APPEND
+    AT_REDIRECT_IN,       // TT_REDIRECT_IN
+    AT_REDIRECT_HEREDOC,  // TT_REDIRECT_HEREDOC
 
     // Atoms:
     AT_COMMAND,           // [<sub-atom>]+ (at least one non-redirection necessary)
+    AT_COMPOUND,          // [<statement>]
 
-    // Operations:
-    AT_UNARY_JOB,         // <command>  &
-    AT_OPERATION_JOB,     // <command>  & <command>
+    // Expressions:
     AT_OPERATION_AND,     // <command> && <command>
     AT_OPERATION_OR,      // <command> || <command>
     AT_PIPELINE,          // <command> [| <command>]+
 
+    // Statements:
+    // IF statements
+    // CASE statements
+    // WHILE statements
+    // FOR statements
+
+    // Program:
     AT_PROGRAM,           // [<operation>]+
 
     AT_COUNT,             // keep last
@@ -55,18 +62,7 @@ typedef struct {
     ast_t **nodes;
     size_t count;
     size_t capacity;
-} ast_program_t;
-
-
-typedef struct {
-    char **args;
-    size_t arg_count;
-    size_t arg_capacity;
-
-    bool is_path[3];    // Tells whether the given io file is a path or a fd
-    void *io_files[3];  // input, output, and error output files
-    int open_flags[3];  // options with which the file is opened if it's a path
-} ast_command_t;
+} ast_node_buffer_t;
 
 
 typedef void (*ast_delete_fnc_t)(void *data);
@@ -82,15 +78,10 @@ void ast_print(const ast_t *ast);
 void ast_print_node(const ast_t *ast, unsigned short depth);
 void ast_delete_binop_data(void *data);
 
-// Program:
-ast_program_t *ast_program_create(void);
-void ast_program_append(ast_program_t *program, ast_t *node);
-void ast_program_delete(ast_program_t *program);
-
-// Command:
-ast_command_t *ast_command_create(void);
-void ast_command_append(ast_command_t *command, const token_t *token);
-void ast_command_delete(ast_command_t *command);
+// Node buffer:
+ast_node_buffer_t *ast_node_buffer_create(void);
+void ast_node_buffer_append(ast_node_buffer_t *buffer, ast_t *node);
+void ast_node_buffer_delete(ast_node_buffer_t *buffer);
 
 
 #endif
