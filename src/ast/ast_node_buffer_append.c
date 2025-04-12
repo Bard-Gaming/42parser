@@ -9,6 +9,7 @@
 #include <42parser/ast.h>
 #include <stdbool.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 
 /*
@@ -32,9 +33,12 @@ static bool grow_buffer(ast_node_buffer_t *buffer)
 */
 void ast_node_buffer_append(ast_node_buffer_t *buffer, ast_t *node)
 {
-    if (buffer->count == buffer->capacity)
-        if (!grow_buffer(buffer))
+    if (buffer->count == buffer->capacity) {
+        if (!grow_buffer(buffer)) {
+            fputs("42parser: warning: Insufficient memory\n", stderr);
             return;
+        }
+    }
     buffer->nodes[buffer->count] = node;
     buffer->count++;
 }
