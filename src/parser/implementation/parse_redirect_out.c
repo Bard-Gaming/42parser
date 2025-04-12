@@ -25,15 +25,17 @@ static int consume_file_descriptor(const char **src)
     return fd;
 }
 
-static void create_redirect_new_fd(ast_redirect_t *redirect, const char **src)
+static void create_redirect_new_fd(parser_t *parser,
+    ast_redirect_t *redirect, const char **src)
 {
     (*src)++;
     redirect->is_path = false;
     redirect->new_fd.fd = consume_file_descriptor(src);
+    parser_next(parser);
 }
 
-static void create_redirect_new_file(ast_redirect_t *redirect,
-    parser_t *parser)
+static void create_redirect_new_file(parser_t *parser,
+    ast_redirect_t *redirect)
 {
     parser_next(parser);
     if (!IS_ARGUMENT(parser->current->type)) {
@@ -57,9 +59,8 @@ ast_t *parse_redirect_out(parser_t *parser)
         1 : consume_file_descriptor(&token_src);
     token_src++;
     if (*token_src == '&')
-        create_redirect_new_fd(redirect, &token_src);
+        create_redirect_new_fd(parser, redirect, &token_src);
     else
-        create_redirect_new_file(redirect, parser);
-    parser_next(parser);
+        create_redirect_new_file(parser, redirect);
     return node;
 }

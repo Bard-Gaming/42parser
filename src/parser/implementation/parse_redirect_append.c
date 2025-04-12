@@ -49,6 +49,5 @@ ast_t *parse_redirect_append(parser_t *parser)
     redirect->old_fd = *parser->current->start == '>' ?
         1 : consume_file_descriptor(parser->current->start);
     create_redirect_new_file(redirect, parser);
-    parser_next(parser);
     return node;
 }
