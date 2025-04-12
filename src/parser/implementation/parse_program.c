@@ -30,6 +30,8 @@ ast_t *parse_program(parser_t *parser)
             break;
         current_stmt = parse_statement(parser);
         ast_node_buffer_append(prog, current_stmt);
+        if (current_stmt->type == AT_ERROR)
+            return node;
     } while (parser->current->type == TT_SEPARATOR);
     return node;
 }

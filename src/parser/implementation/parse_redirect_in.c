@@ -34,7 +34,8 @@ static void create_redirect_new_fd(parser_t *parser,
     parser_next(parser);
 }
 
-static void create_redirect_new_file(parser_t *parser, ast_redirect_t *redirect)
+static void create_redirect_new_file(parser_t *parser,
+    ast_redirect_t *redirect)
 {
     parser_next(parser);
     if (!IS_ARGUMENT(parser->current->type)) {

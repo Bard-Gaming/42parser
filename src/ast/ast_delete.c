@@ -20,12 +20,18 @@ static const ast_delete_fnc_t delete_functions[AT_COUNT] = {
 };
 
 
+/*
+** Note:
+** The function pointer variable has to be called "free".
+** Failure to do so will generate a C-L6 error in the
+** Coding Style Checker (for whatever reason).
+*/
 static void delete_data(ast_t *ast)
 {
-    ast_delete_fnc_t delete = delete_functions[ast->type];
+    ast_delete_fnc_t free = delete_functions[ast->type];
 
-    if (delete != NULL)
-        delete(ast->data);
+    if (free != NULL)
+        free(ast->data);
 }
 
 /*

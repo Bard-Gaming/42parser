@@ -23,7 +23,7 @@ static bool grow_buffer(ast_node_buffer_t *buffer)
         buffer->capacity,
         sizeof(ast_t *)
     );
-    return buffer->nodes == NULL;
+    return buffer->nodes != NULL;
 }
 
 /*

@@ -51,6 +51,8 @@ static ast_node_buffer_t *parse_compound_body(parser_t *parser)
             break;
         current_stmt = parse_statement(parser);
         ast_node_buffer_append(buffer, current_stmt);
+        if (current_stmt->type == AT_ERROR)
+            return buffer;
     }
     return buffer;
 }
@@ -67,9 +69,8 @@ ast_t *parse_parenthesis(parser_t *parser)
     parser_next(parser);
     result->data = parse_compound_body(parser);
     if (parser->current->type != TT_RPAREN) {
-        ast_delete(result);
         parser_errno_set(PE_UNMATCHED_PARENTHESIS);
-        return ast_create(AT_ERROR);
+        return result;
     }
     parser_next(parser);
     return result;
