@@ -68,6 +68,7 @@ typedef enum {
     RT_FILE_DESCRIPTOR,
     RT_FILE_PATH,
     RT_HEREDOC_END,
+    RT_HERESTRING,
 } redirect_type_t;
 
 

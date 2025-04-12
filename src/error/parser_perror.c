@@ -21,7 +21,8 @@ static const char *error_messages[PE_COUNT] = {
     [PE_UNMATCHED_PARENTHESIS] = "Unmatched parenthesis.",
     [PE_MISSING_REDIRECT_NAME] = "Missing name for redirect.",
     [PE_REDIRECT_WITH_ILLEGAL_FD] = "Redirect with illegal file descriptor.",
-    [PE_EMPTY_HEREDOC] = "Missing end sequence to heredoc."
+    [PE_EMPTY_HEREDOC] = "Missing end sequence to heredoc.",
+    [PE_EMPTY_HERESTR] = "Missing string for herestring.",
 };
 
 static size_t msg_len(const char *msg)

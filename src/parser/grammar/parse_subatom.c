@@ -6,9 +6,9 @@
 ** parse_subatom
 */
 
-#include "42parser/token.h"
 #include <42parser/parser.h>
 #include <42parser/ast.h>
+#include <42parser/token.h>
 #include <42parser/error.h>
 
 
@@ -24,7 +24,9 @@ static ast_t *parse_redirect(parser_t *parser)
 {
     switch (parser->current->type) {
     case TT_REDIRECT_HEREDOC:
-        return parse_redirect_heredoc(parser);
+        return parse_redirect_non_fd(parser, RT_HEREDOC_END);
+    case TT_REDIRECT_HERESTR:
+        return parse_redirect_non_fd(parser, RT_HERESTRING);
     case TT_REDIRECT_APPEND:
         return parse_redirect_append(parser);
     case TT_REDIRECT_OUT:
@@ -50,6 +52,7 @@ ast_t *parse_subatom(parser_t *parser)
 {
     switch (parser->current->type) {
     case TT_REDIRECT_HEREDOC:
+    case TT_REDIRECT_HERESTR:
     case TT_REDIRECT_APPEND:
     case TT_REDIRECT_OUT:
     case TT_REDIRECT_IN:

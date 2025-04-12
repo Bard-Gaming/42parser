@@ -52,8 +52,8 @@ SRC_FILES =	src/ast/ast_create.c										\
 			src/parser/implementation/parse_pipeline.c					\
 			src/parser/implementation/parse_program.c					\
 			src/parser/implementation/parse_redirect_append.c			\
-			src/parser/implementation/parse_redirect_heredoc.c			\
 			src/parser/implementation/parse_redirect_in.c				\
+			src/parser/implementation/parse_redirect_non_fd.c			\
 			src/parser/implementation/parse_redirect_out.c				\
 			src/parser/parse_input.c									\
 			src/parser/parser_init.c									\
