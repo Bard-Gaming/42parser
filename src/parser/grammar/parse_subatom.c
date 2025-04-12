@@ -33,6 +33,8 @@ ast_t *parse_subatom(parser_t *parser)
         return parse_redirect_out(parser);
     case TT_REDIRECT_APPEND:
         return parse_redirect_append(parser);
+    case TT_REDIRECT_IN:
+        return parse_redirect_in(parser);
     case TT_EOF:
         return ast_create(AT_ERROR);
     default:

@@ -36,7 +36,7 @@ static void create_redirect_new_file(ast_redirect_t *redirect,
 
 ast_t *parse_redirect_append(parser_t *parser)
 {
-    ast_t *node = ast_create(AT_REDIRECT_OUT);
+    ast_t *node = ast_create(AT_REDIRECT);
     ast_redirect_t *redirect;
 
     if (!IS_ARGUMENT(parser->next->type)) {

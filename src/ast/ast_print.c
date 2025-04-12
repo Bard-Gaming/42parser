@@ -11,21 +11,6 @@
 #include <stdio.h>
 
 
-static const char *type_repr[AT_COUNT] = {
-    [AT_ERROR] = "Error",
-    [AT_ARGUMENT] = "Argument",
-    [AT_RAW_STRING] = "Raw String",
-    [AT_FORMAT_STRING] = "Format String",
-    [AT_REDIRECT_OUT] = "Redirect Out (> or >>)",
-    [AT_REDIRECT_IN] = "Redirect In (<)",
-    [AT_REDIRECT_HEREDOC] = "Heredoc (<<)",
-    [AT_COMMAND] = "Command",
-    [AT_COMPOUND] = "Compound (parenthesis)",
-    [AT_OPERATION_AND] = "Operation AND (&&)",
-    [AT_OPERATION_OR] = "Operation OR (||)",
-    [AT_PIPELINE] = "Pipeline (|)",
-    [AT_PROGRAM] = "Program",
-};
 
 static void print_indent(unsigned short indent_amount)
 {
@@ -36,7 +21,7 @@ static void print_indent(unsigned short indent_amount)
     putchar('\n');
     for (unsigned int i = 0; i < (unsigned)indent_amount - 1; i++)
         fputs(" |  ", stdout);
-    puts(" |- ");
+    fputs(" |- ", stdout);
 }
 
 static void print_operation(const ast_t *ast, unsigned short depth)
@@ -61,7 +46,7 @@ static void print_node_data(const ast_t *ast, unsigned short depth)
     case AT_ARGUMENT:
     case AT_RAW_STRING:
     case AT_FORMAT_STRING:
-        print_indent(depth);
+        print_indent(depth + 1);
         puts(ast->data);
         return;
     case AT_PIPELINE:
@@ -79,7 +64,7 @@ static void print_node_data(const ast_t *ast, unsigned short depth)
 void ast_print_node(const ast_t *ast, unsigned short depth)
 {
     print_indent(depth);
-    puts(type_repr[ast->type]);
+    puts(ast_strtype(ast));
     print_node_data(ast, depth);
 }
 

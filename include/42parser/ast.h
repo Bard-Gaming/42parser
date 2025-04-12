@@ -26,8 +26,7 @@ typedef enum {
     AT_ARGUMENT,          // TT_ARGUMENT (stores char *)
     AT_RAW_STRING,        // TT_RAW_STRING (stores char *)
     AT_FORMAT_STRING,     // TT_FORMAT_STRING (stores )
-    AT_REDIRECT_OUT,      // TT_REDIRECT_OUT or TT_REDIRECT_APPEND
-    AT_REDIRECT_IN,       // TT_REDIRECT_IN
+    AT_REDIRECT,          // > or >> or <
     AT_REDIRECT_HEREDOC,  // TT_REDIRECT_HEREDOC
 
     // Atoms:
@@ -83,6 +82,7 @@ ast_t *ast_create(ast_type_t type);
 void ast_delete(ast_t *ast);
 
 // AST Utils:
+const char *ast_strtype(const ast_t *node);
 void ast_print(const ast_t *ast);
 
 // Implementation functions (need to be forward declared for double recursion)
