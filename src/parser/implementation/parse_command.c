@@ -20,17 +20,17 @@ ast_t *parse_command(parser_t *parser)
 {
     ast_t *node = ast_create(AT_COMMAND);
     ast_node_buffer_t *buffer = ast_node_buffer_create();
-    ast_t *subnode;
     bool has_arguments = false;
+    ast_t *subnode;
 
     node->data = buffer;
     while (IS_COMMAND_NODE(parser->current->type)) {
         if (IS_ARGUMENT(parser->current->type))
             has_arguments = true;
         subnode = parse_subatom(parser);
-        if (subnode->type == AT_ERROR)
-            return subnode;
         ast_node_buffer_append(buffer, subnode);
+        if (subnode->type == AT_ERROR)
+            return node;
     }
     if (!has_arguments)
         parser_errno_set(PE_NULL_COMMAND);

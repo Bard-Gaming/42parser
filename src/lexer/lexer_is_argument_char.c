@@ -11,6 +11,15 @@
 #include <stdbool.h>
 
 
+static const char *reserved_chars =
+// Sidenote: The (infamous) Coding Style Checker
+// expects me not to indent this for some reason.
+
+" \t\n;"    // Whitespace / separators
+"()<>&|"    // Operation chars
+"\"'";      // Inhibitors
+
+
 /*
 ** Determines whether or not
 ** a given char is a valid
@@ -18,12 +27,14 @@
 */
 bool lexer_is_argument_char(char c)
 {
-    const char *reserved_chars = RESERVED_CHARS;
+    const char *current = reserved_chars;
 
-    while (*reserved_chars != '\0') {
-        if (c == *reserved_chars)
+    if (c == '\0')
+        return false;
+    while (*current != '\0') {
+        if (c == *current)
             return false;
-        reserved_chars++;
+        current++;
     }
     return true;
 }

@@ -22,7 +22,7 @@ SRC_FILES =	src/ast/ast_create.c										\
 			src/ast/ast_node_buffer_create.c							\
 			src/ast/ast_node_buffer_delete.c							\
 			src/ast/ast_print.c											\
-			src/ast/ast_redirect_create.c								\
+			src/ast/ast_redirect_delete.c								\
 			src/ast/ast_strtype.c										\
 			src/error/parser_errno.c									\
 			src/error/parser_perror.c									\

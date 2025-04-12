@@ -39,6 +39,6 @@ token_t *lexer_make_redirect_in(lexer_t *lexer)
     }
     return token_create(
         TT_REDIRECT_IN, lexer->start,
-        lexer->start - lexer->current
+        lexer->current - lexer->start
     );
 }

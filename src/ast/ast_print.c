@@ -52,6 +52,7 @@ static void print_node_data(const ast_t *ast, unsigned short depth)
     case AT_PIPELINE:
     case AT_PROGRAM:
     case AT_COMMAND:
+    case AT_COMPOUND:
         return print_container(ast, depth);
     case AT_OPERATION_AND:
     case AT_OPERATION_OR:

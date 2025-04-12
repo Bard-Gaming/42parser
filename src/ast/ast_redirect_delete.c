@@ -17,6 +17,6 @@
 void ast_redirect_delete(ast_redirect_t *redirect)
 {
     if (redirect->is_path)
-        free(redirect->new_fd.path);
+        ast_delete(redirect->new_fd.path);
     free(redirect);
 }

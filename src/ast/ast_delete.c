@@ -11,8 +11,8 @@
 
 
 static const ast_delete_fnc_t delete_functions[AT_COUNT] = {
-    [AT_REDIRECT] = (ast_delete_fnc_t)ast_redirect_delete,
     [AT_ARGUMENT ... AT_FORMAT_STRING] = free,
+    [AT_REDIRECT] = (ast_delete_fnc_t)ast_redirect_delete,
     [AT_COMMAND ... AT_COMPOUND] = (ast_delete_fnc_t)ast_node_buffer_delete,
     [AT_OPERATION_AND ... AT_OPERATION_OR] = ast_delete_binop_data,
     [AT_PIPELINE] = (ast_delete_fnc_t)ast_node_buffer_delete,
@@ -22,10 +22,10 @@ static const ast_delete_fnc_t delete_functions[AT_COUNT] = {
 
 static void delete_data(ast_t *ast)
 {
-    ast_delete_fnc_t free = delete_functions[ast->type];
+    ast_delete_fnc_t delete = delete_functions[ast->type];
 
-    if (free != NULL)
-        free(ast->data);
+    if (delete != NULL)
+        delete(ast->data);
 }
 
 /*
