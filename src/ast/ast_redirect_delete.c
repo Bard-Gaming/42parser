@@ -16,7 +16,7 @@
 */
 void ast_redirect_delete(ast_redirect_t *redirect)
 {
-    if (redirect->is_path)
+    if (redirect->type != RT_FILE_DESCRIPTOR)
         ast_delete(redirect->new_fd.path);
     free(redirect);
 }

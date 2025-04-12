@@ -64,14 +64,25 @@ typedef struct {
 } ast_node_buffer_t;
 
 
+typedef enum {
+    RT_FILE_DESCRIPTOR,
+    RT_FILE_PATH,
+    RT_HEREDOC_END,
+} redirect_type_t;
+
+
+typedef union {
+    int fd;
+    ast_t *heredoc_end;
+    ast_t *path;
+} redirect_data_t;
+
+
 typedef struct {
-    int old_fd;       // fd to replace with new fd
-    bool is_path;     // tells whether or not new_fd is a path or a fd
-    union {
-        ast_t *path;  // arg/string node which contains the data
-        int fd;
-    } new_fd;
-    int open_flags;  // flags to open file with (if needed)
+    redirect_type_t type;    // type of redirect
+    redirect_data_t new_fd;  // thing to replace old fd with
+    int old_fd;              // fd to replace with new fd
+    int open_flags;          // flags to open file with (if needed)
 } ast_redirect_t;
 
 

@@ -32,7 +32,7 @@ typedef enum {
 
     // Redirections:
     TT_REDIRECT_IN,       // [fd]?<[&fd]?
-    TT_REDIRECT_HEREDOC,  // <<
+    TT_REDIRECT_HEREDOC,  // [fd]?<<
     TT_REDIRECT_OUT,      // [fd]?>[&fd]?
     TT_REDIRECT_APPEND,   // [fd]?>>
 

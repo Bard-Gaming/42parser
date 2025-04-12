@@ -29,7 +29,7 @@ static void create_redirect_new_fd(parser_t *parser,
     ast_redirect_t *redirect, const char **src)
 {
     (*src)++;
-    redirect->is_path = false;
+    redirect->type = RT_FILE_DESCRIPTOR;
     redirect->new_fd.fd = consume_file_descriptor(src);
     parser_next(parser);
 }
@@ -40,10 +40,10 @@ static void create_redirect_new_file(parser_t *parser,
     parser_next(parser);
     if (!IS_ARGUMENT(parser->current->type)) {
         parser_errno_set(PE_MISSING_REDIRECT_NAME);
-        redirect->is_path = false;
+        redirect->type = RT_FILE_DESCRIPTOR;
         return;
     }
-    redirect->is_path = true;
+    redirect->type = RT_FILE_PATH;
     redirect->open_flags = O_RDONLY;
     redirect->new_fd.path = parse_subatom(parser);
 }

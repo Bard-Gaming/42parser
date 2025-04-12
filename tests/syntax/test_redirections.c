@@ -108,7 +108,7 @@ Test(test_redirections, redir_append_with_fd)
 
     ast = parse_input(input);
     cr_assert_eq(ast, NULL);
-    cr_assert_eq(P_ERRNO, PE_APPEND_REDIRECT_WITH_FD);
+    cr_assert_eq(P_ERRNO, PE_REDIRECT_WITH_ILLEGAL_FD);
 }
 
 Test(test_redirections, heredoc_no_end)
@@ -119,4 +119,14 @@ Test(test_redirections, heredoc_no_end)
     ast = parse_input(input);
     cr_assert_eq(ast, NULL);
     cr_assert_eq(P_ERRNO, PE_EMPTY_HEREDOC);
+}
+
+Test(test_redirections, heredoc_illegal_fd)
+{
+    ast_t *ast;
+    const char *input = "cat <<&2";
+
+    ast = parse_input(input);
+    cr_assert_eq(ast, NULL);
+    cr_assert_eq(P_ERRNO, PE_REDIRECT_WITH_ILLEGAL_FD);
 }

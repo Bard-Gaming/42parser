@@ -20,7 +20,7 @@ static const char *error_messages[PE_COUNT] = {
     [PE_UNMATCHED_FORMAT_STRING] = "Unmatched '\"'.",
     [PE_UNMATCHED_PARENTHESIS] = "Unmatched parenthesis.",
     [PE_MISSING_REDIRECT_NAME] = "Missing name for redirect.",
-    [PE_APPEND_REDIRECT_WITH_FD] = "Illegal append redirect with fd.",
+    [PE_REDIRECT_WITH_ILLEGAL_FD] = "Redirect with illegal file descriptor.",
     [PE_EMPTY_HEREDOC] = "Missing end sequence to heredoc."
 };
 
