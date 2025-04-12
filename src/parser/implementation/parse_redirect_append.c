@@ -13,18 +13,6 @@
 #include <stdlib.h>
 
 
-static int consume_file_descriptor(const char *src)
-{
-    int fd = 0;
-
-    while ('0' <= *src && *src <= '9') {
-        fd *= 10;
-        fd += *src - '0';
-        src++;
-    }
-    return fd;
-}
-
 static void create_redirect_new_file(ast_redirect_t *redirect,
     parser_t *parser)
 {
@@ -47,7 +35,7 @@ ast_t *parse_redirect_append(parser_t *parser)
     redirect = malloc(sizeof(ast_redirect_t));
     node->data = redirect;
     redirect->old_fd = *parser->current->start == '>' ?
-        1 : consume_file_descriptor(parser->current->start);
+        1 : atoi(parser->current->start);
     create_redirect_new_file(redirect, parser);
     return node;
 }
