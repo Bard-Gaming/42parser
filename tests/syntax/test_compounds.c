@@ -38,7 +38,7 @@ Test(test_compounds, unmatched_parenthesis_missing)
 
     ast = parse_input(input);
     cr_assert_eq(ast, NULL);
-    cr_assert_eq(P_ERRNO, PE_UNMATCHED_PARENTHESIS);
+    cr_assert_eq(P_ERRNO, PE_UNMATCHED_LPAREN);
 }
 
 Test(test_compounds, unmatched_parenthesis_newline)
@@ -50,5 +50,16 @@ Test(test_compounds, unmatched_parenthesis_newline)
 
     ast = parse_input(input);
     cr_assert_eq(ast, NULL);
-    cr_assert_eq(P_ERRNO, PE_UNMATCHED_PARENTHESIS);
+    cr_assert_eq(P_ERRNO, PE_UNMATCHED_LPAREN);
+}
+
+Test(test_compounds, unmatched_right_parenthesis)
+{
+    ast_t *ast;
+    const char *input = "); ls";
+
+    ast = parse_input(input);
+    cr_assert_eq(ast, NULL);
+    parser_perror("test");
+    cr_assert_eq(P_ERRNO, PE_UNMATCHED_RPAREN);
 }
