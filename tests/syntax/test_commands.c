@@ -71,6 +71,26 @@ Test(test_commands, format_string)
     cr_assert_eq(P_ERRNO, PE_NONE);
 }
 
+Test(test_commands, backslash)
+{
+    ast_t *ast;
+    const char *input = "echo single\\ arg";
+
+    ast = parse_input(input);
+    cr_assert_neq(ast, NULL);
+    cr_assert_eq(P_ERRNO, PE_NONE);
+}
+
+Test(test_commands, backslash_end)
+{
+    ast_t *ast;
+    const char *input = "echo arg\\";
+
+    ast = parse_input(input);
+    cr_assert_neq(ast, NULL);
+    cr_assert_eq(P_ERRNO, PE_NONE);
+}
+
 //////////////////////////////////////////////////
 //                                              //
 //                 FAILING TESTS                //
