@@ -70,6 +70,7 @@ TEST_NAME = unit_tests
 TEST_SRC =	tests/syntax/test_basic.c									\
 			tests/syntax/test_commands.c								\
 			tests/syntax/test_compounds.c								\
+			tests/syntax/test_operations.c								\
 			tests/syntax/test_pipes.c									\
 			tests/syntax/test_redirections.c							\
 

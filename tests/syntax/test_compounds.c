@@ -60,6 +60,5 @@ Test(test_compounds, unmatched_right_parenthesis)
 
     ast = parse_input(input);
     cr_assert_eq(ast, NULL);
-    parser_perror("test");
     cr_assert_eq(P_ERRNO, PE_UNMATCHED_RPAREN);
 }
