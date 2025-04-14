@@ -56,7 +56,17 @@ Test(test_compounds, unmatched_parenthesis_newline)
 Test(test_compounds, unmatched_right_parenthesis)
 {
     ast_t *ast;
-    const char *input = "); ls";
+    const char *input = ")";
+
+    ast = parse_input(input);
+    cr_assert_eq(ast, NULL);
+    cr_assert_eq(P_ERRNO, PE_UNMATCHED_RPAREN);
+}
+
+Test(test_compounds, unmatched_right_parenthesis_command)
+{
+    ast_t *ast;
+    const char *input = "ls )";
 
     ast = parse_input(input);
     cr_assert_eq(ast, NULL);
