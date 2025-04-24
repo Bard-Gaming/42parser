@@ -88,7 +88,10 @@ typedef struct {
 
 typedef struct {
     bool is_char;
-    union { char c; char *var; } val;
+    union {
+        char c;
+        char *var;
+    } val;
 } ast_arg_comp_t;
 
 
