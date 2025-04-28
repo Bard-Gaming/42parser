@@ -19,7 +19,7 @@
 Test(test_basic, empty_input)
 {
     ast_t *ast;
-    const char *input = "\n";
+    const char *input = "";
 
     ast = parse_input(input);
     cr_assert_neq(ast, NULL);
