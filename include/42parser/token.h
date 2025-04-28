@@ -40,7 +40,8 @@ typedef enum {
 
     // Arguments:
     TT_RAW_ARGUMENT,      // raw arguments (no interpretation needed)
-    TT_ARGUMENT,          // arguments which need to be interpreted
+    TT_ARGUMENT_STR,      // arguments which need to be interpreted
+    TT_ARGUMENT,          // arguments which need to be interpreted (no ws)
 
     // Misc.:
     TT_SEPARATOR,         // Statement separator, i.e. '\n' or ';'
