@@ -15,6 +15,8 @@
     #define AST_ARGUMENT_INIT_CAP 20
     #define AST_BUFFER_GROWTH_FACTOR 1.5f
 
+    #define AST_ARG_TYPE(t) (t == TT_ARGUMENT ? AT_ARGUMENT : AT_ARGUMENT_STR)
+
     #include <42parser/token.h>
     #include <stdbool.h>
     #include <stddef.h>
@@ -24,6 +26,7 @@ typedef enum {
     AT_ERROR,             // <generic error>
 
     // Sub-atoms:
+    AT_VARIABLE,          // Variable name (stores char *)
     AT_RAW_ARGUMENT,      // TT_RAW_ARGUMENT (stores char *)
     AT_ARGUMENT_STR,      // Format argument, but with whitespace
     AT_ARGUMENT,          // Format argument (gets split in interpreter)
