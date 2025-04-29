@@ -60,7 +60,6 @@ static bool handle_bracket_end(const char **current, const char *start)
         parser_errno_set(PE_ILLEGAL_VAR_NAME);
         return false;
     }
-    (*current)++;
     return true;
 }
 
@@ -84,6 +83,8 @@ static void parse_variable(ast_argument_t *arg,
     node = ast_create(AT_VARIABLE);
     ast_argument_add_node(arg, node);
     node->data = strndup(start, *current - start);
+    if (is_bracket)
+        (*current)++;
 }
 
 static void parse_arg_char(ast_argument_t *arg,
