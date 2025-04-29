@@ -55,3 +55,28 @@ Test(test_variables, bracket_variable)
     cr_assert_neq(ast, NULL);
     cr_assert_eq(P_ERRNO, PE_NONE);
 }
+
+//////////////////////////////////////////////////
+//                                              //
+//                 FAILING TESTS                //
+//                                              //
+//////////////////////////////////////////////////
+Test(test_variables, empty_var)
+{
+    ast_t *ast;
+    const char *input = "echo ae${}bob";
+
+    ast = parse_input(input);
+    cr_assert_eq(ast, NULL);
+    cr_assert_eq(P_ERRNO, PE_ILLEGAL_VAR_NAME);
+}
+
+Test(test_variables, unmatched_rbracket)
+{
+    ast_t *ast;
+    const char *input = "echo \"ae${e\"";
+
+    ast = parse_input(input);
+    cr_assert_eq(ast, NULL);
+    cr_assert_eq(P_ERRNO, PE_UNMATCHED_RBRACKET);
+}
