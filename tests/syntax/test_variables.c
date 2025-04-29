@@ -35,3 +35,23 @@ Test(test_variables, composed_variable)
     cr_assert_neq(ast, NULL);
     cr_assert_eq(P_ERRNO, PE_NONE);
 }
+
+Test(test_variables, composed_variable_str)
+{
+    ast_t *ast;
+    const char *input = "echo \"path hehe $file \"";
+
+    ast = parse_input(input);
+    cr_assert_neq(ast, NULL);
+    cr_assert_eq(P_ERRNO, PE_NONE);
+}
+
+Test(test_variables, bracket_variable)
+{
+    ast_t *ast;
+    const char *input = "echo \"path hehe ${file} e \"";
+
+    ast = parse_input(input);
+    cr_assert_neq(ast, NULL);
+    cr_assert_eq(P_ERRNO, PE_NONE);
+}
