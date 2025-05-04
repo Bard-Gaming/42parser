@@ -25,7 +25,6 @@ void preparser_grow(preparser_t *preparser)
         preparser->capacity,
         sizeof(char)
     );
-
     if (preparser->output != NULL)
         return;
     fputs("42parser: critical memory error\n", stderr);

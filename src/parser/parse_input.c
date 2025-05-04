@@ -34,11 +34,6 @@ ast_t *parse_input(const char *input)
 
     parser_errno_set(PE_NONE);
     expanded_input = preparse(input);
-
-    // FIXME: delete this
-    printf("New input: \"%s\"\n", expanded_input);
-    return NULL;
-
     if (expanded_input == NULL)
         return NULL;
     parser_init(&parser, expanded_input);
