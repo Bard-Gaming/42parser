@@ -25,7 +25,6 @@
 ** The given ast should be deleted with
 ** ast_delete once it isn't needed anymore.
 */
-#include <stdio.h>
 ast_t *parse_input(const char *input)
 {
     char *expanded_input;
