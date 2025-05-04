@@ -26,6 +26,6 @@ void preparser_add_str(preparser_t *preparser, const char *str)
 
     while (preparser->count + len + 1 >= preparser->capacity)
         preparser_grow(preparser);
-    memcpy(preparser->output, str, len + 1);
+    memcpy(preparser->output + preparser->count, str, len + 1);
     preparser->count += len;
 }

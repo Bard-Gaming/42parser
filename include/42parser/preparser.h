@@ -16,10 +16,12 @@
 
 typedef struct {
     lexer_t lexer;
+    token_t *prev;
     token_t *current;
 
     // State:
-    bool is_in_command;
+    bool is_command;
+    bool has_arg;
 
     // Output:
     char *output;
@@ -40,7 +42,7 @@ void preparser_grow(preparser_t *preparser);
 // Preparse output:
 void preparser_add_char(preparser_t *preparser, char c);
 void preparser_add_str(preparser_t *preparser, const char *str);
-void preparser_add_token(preparser_t *preparser, const token_t *token);
+void preparser_add_token(preparser_t *preparser);
 
 
 #endif

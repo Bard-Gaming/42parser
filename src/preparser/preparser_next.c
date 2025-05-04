@@ -16,6 +16,7 @@
 */
 void preparser_next(preparser_t *preparser)
 {
-    free(preparser->current);
+    free(preparser->prev);
+    preparser->prev = preparser->current;
     preparser->current = lexer_scan(&preparser->lexer);
 }

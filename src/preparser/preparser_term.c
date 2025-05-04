@@ -19,5 +19,6 @@
 */
 void preparser_term(preparser_t *preparser)
 {
+    free(preparser->prev);
     free(preparser->current);
 }
