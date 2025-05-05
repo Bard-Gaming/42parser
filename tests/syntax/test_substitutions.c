@@ -26,6 +26,16 @@ Test(test_substitutions, simple_substitution)
     cr_assert_eq(P_ERRNO, PE_NONE);
 }
 
+Test(test_substitutions, multi_arg_substitution)
+{
+    ast_t *ast;
+    const char *input = "echo `ls -ld .`";
+
+    ast = parse_input(input);
+    cr_assert_neq(ast, NULL);
+    cr_assert_eq(P_ERRNO, PE_NONE);
+}
+
 Test(test_substitutions, simple_str_substitution)
 {
     ast_t *ast;
