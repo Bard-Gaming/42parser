@@ -72,15 +72,9 @@ static void parse_command_condition(parser_t *parser, ast_t *node)
     ast_t *current;
 
     cond->is_command = true;
-    cond->condition = ast_node_buffer_create();
-    while (!is_condition_end(parser)) {
-        current = parse_expression(parser);
-        ast_node_buffer_append(cond->condition, current);
-        if (current->type == AT_ERROR)
-            break;
-    }
+    cond->condition.command = parse_expression(parser);
     if (parser->current->type != TT_SEPARATOR)
-        return parser_errno_set_weak(PE_MISSING_THEN_ENDIF);
+        return parser_errno_set(PE_MISSING_THEN_ENDIF);
     while (parser->current->type == TT_SEPARATOR)
         parser_next(parser);
 }
@@ -92,16 +86,15 @@ static void parse_test_condition(parser_t *parser, ast_t *node)
 
     parser_next(parser);
     cond->is_command = false;
-    cond->condition = ast_node_buffer_create();
+    cond->condition.test_args = ast_node_buffer_create();
     while (IS_ARGUMENT(parser->current->type)) {
         current = parse_subatom(parser);
+        ast_node_buffer_append(cond->condition.test_args, current);
         if (current->type == AT_ERROR)
             break;
-        ast_node_buffer_append(cond->condition, current);
     }
-    if (parser->current->type != TT_RPAREN)
+    if (!parser_scan(parser, TT_RPAREN))
         return parser_errno_set(PE_UNMATCHED_RPAREN);
-    parser_next(parser);
 }
 
 /*
