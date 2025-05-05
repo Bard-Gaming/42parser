@@ -48,6 +48,25 @@ Test(test_conditionals, test_conditional_else)
     cr_assert_eq(P_ERRNO, PE_NONE);
 }
 
+Test(test_conditionals, complex_test_conditional)
+{
+    ast_t *ast;
+    const char *input =
+        "if ( b == a ) then\n"
+        "    echo 1\n"
+        "else if ( b == b ) then\n"
+        "    echo 2\n"
+        "else if ( b == c ) then\n"
+        "    echo 3\n"
+        "else\n"
+        "    echo 4\n"
+        "endif\n";
+
+    ast = parse_input(input);
+    cr_assert_neq(ast, NULL);
+    cr_assert_eq(P_ERRNO, PE_NONE);
+}
+
 Test(test_conditionals, simple_command_conditional)
 {
     ast_t *ast;
