@@ -109,6 +109,8 @@ static void parse_substatement(parser_t *parser, ast_if_stmnt_t *data)
         ast_if_stmnt_add_test(data, test, body);
     else
         ast_if_stmnt_add_command(data, command, body);
+    if (parser->current->type == TT_ELSE && parser->next->type == TT_IF)
+        parser_next(parser);
 }
 
 /*
