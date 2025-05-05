@@ -45,3 +45,15 @@ Test(test_basic, weird_character)
     cr_assert_neq(ast, NULL);
     cr_assert_eq(P_ERRNO, PE_NONE);
 }
+
+Test(test_basic, only_comment)
+{
+    ast_t *ast;
+    const char *input =
+        "   # well damn bro\n"
+        "\t#hehe";
+
+    ast = parse_input(input);
+    cr_assert_neq(ast, NULL);
+    cr_assert_eq(P_ERRNO, PE_NONE);
+}
