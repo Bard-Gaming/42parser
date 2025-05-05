@@ -14,7 +14,7 @@ void ast_delete_conditional_data(void *data)
 {
     ast_conditional_t *cond = data;
 
-    ast_delete(cond->condition);
+    ast_node_buffer_delete(cond->condition);
     ast_delete(cond->body);
     free(cond);
 }
