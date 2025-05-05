@@ -31,6 +31,23 @@ Test(test_conditionals, simple_test_conditional)
     cr_assert_eq(P_ERRNO, PE_NONE);
 }
 
+Test(test_conditionals, test_conditional_else)
+{
+    ast_t *ast;
+    const char *input =
+        "if ( a == a ) then\n"
+        "    echo bob\n"
+        "    echo test\n"
+        "else\n"
+        "    echo not bob\n"
+        "    echo not test\n"
+        "endif\n";
+
+    ast = parse_input(input);
+    cr_assert_neq(ast, NULL);
+    cr_assert_eq(P_ERRNO, PE_NONE);
+}
+
 Test(test_conditionals, simple_command_conditional)
 {
     ast_t *ast;
@@ -85,6 +102,20 @@ Test(test_conditionals, missing_endif)
         "if ( a == a ) then\n"
         "    echo bob\n"
         "    echo test\n";
+
+    ast = parse_input(input);
+    cr_assert_eq(ast, NULL);
+    cr_assert_eq(P_ERRNO, PE_MISSING_THEN_ENDIF);
+}
+
+Test(test_conditionals, missing_endif_else)
+{
+    ast_t *ast;
+    const char *input =
+        "if ( a == a ) then\n"
+        "    echo bob\n"
+        "    echo test\n"
+        "else\n";
 
     ast = parse_input(input);
     cr_assert_eq(ast, NULL);
