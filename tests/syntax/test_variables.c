@@ -108,5 +108,5 @@ Test(test_variables, unmatched_rbracket)
 
     ast = parse_input(input);
     cr_assert_eq(ast, NULL);
-    cr_assert_eq(P_ERRNO, PE_UNMATCHED_RBRACKET);
+    cr_assert_eq(P_ERRNO, PE_UNMATCHED_LBRACE);
 }
