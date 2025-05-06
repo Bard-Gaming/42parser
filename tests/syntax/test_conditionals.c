@@ -71,9 +71,26 @@ Test(test_conditionals, simple_command_conditional)
 {
     ast_t *ast;
     const char *input =
-        "if echo hi; then\n"
+        "if ({ echo hi }) then\n"
         "    echo bob\n"
         "    echo test\n"
+        "endif\n";
+
+    ast = parse_input(input);
+    cr_assert_neq(ast, NULL);
+    cr_assert_eq(P_ERRNO, PE_NONE);
+}
+
+Test(test_conditionals, complex_command_conditional)
+{
+    ast_t *ast;
+    const char *input =
+        "if ({ echo hi }) then\n"
+        "    echo bob\n"
+        "    echo test\n"
+        "else if ({ echo not hi }) then\n"
+        "    echo bob2\n"
+        "    echo test2\n"
         "endif\n";
 
     ast = parse_input(input);
@@ -97,21 +114,21 @@ Test(test_conditionals, unmatched_test_paren)
 
     ast = parse_input(input);
     cr_assert_eq(ast, NULL);
-    cr_assert_eq(P_ERRNO, PE_UNMATCHED_RPAREN);
+    cr_assert_eq(P_ERRNO, PE_UNMATCHED_LPAREN);
 }
 
 Test(test_conditionals, unended_command_condition)
 {
     ast_t *ast;
     const char *input =
-        "if echo hi then\n"
+        "if ({ echo hi ) then\n"
         "    echo bob\n"
         "    echo test\n"
         "endif\n";
 
     ast = parse_input(input);
     cr_assert_eq(ast, NULL);
-    cr_assert_eq(P_ERRNO, PE_MISSING_THEN_ENDIF);
+    cr_assert_eq(P_ERRNO, PE_IF_MISSING_BRACE);
 }
 
 Test(test_conditionals, missing_endif)

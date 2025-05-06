@@ -38,6 +38,16 @@ Test(test_commands, multiple_commands_nl)
     cr_assert_eq(P_ERRNO, PE_NONE);
 }
 
+Test(test_commands, brace_argument)
+{
+    ast_t *ast;
+    const char *input =
+        "echo bob } a";
+
+    ast = parse_input(input);
+    cr_assert_neq(ast, NULL);
+    cr_assert_eq(P_ERRNO, PE_NONE);
+}
 
 Test(test_commands, multiple_commands_sc)
 {
@@ -85,6 +95,16 @@ Test(test_commands, backslash_end)
 {
     ast_t *ast;
     const char *input = "echo arg\\";
+
+    ast = parse_input(input);
+    cr_assert_neq(ast, NULL);
+    cr_assert_eq(P_ERRNO, PE_NONE);
+}
+
+Test(test_commands, keyword_args)
+{
+    ast_t *ast;
+    const char *input = "echo endif if while";
 
     ast = parse_input(input);
     cr_assert_neq(ast, NULL);
