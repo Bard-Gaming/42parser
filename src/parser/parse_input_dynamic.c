@@ -8,17 +8,23 @@
 
 #include <42parser/parser.h>
 #include <42parser/preparser.h>
+#include <string.h>
 #include <stdlib.h>
 
 
-static ast_t *dynamically_parse(parser_t *parser, const char **saveptr)
+static ast_t *dynamically_parse(parser_t *parser, char **saveptr)
 {
     ast_t *result;
 
     while (parser->current->type == TT_SEPARATOR)
         parser_next(parser);
     result = parse_statement(parser);
-    *saveptr = parser->lexer.start;
+    while (parser->current->type == TT_SEPARATOR)
+        parser_next(parser);
+    free(*saveptr);
+    *saveptr = NULL;
+    if (parser->current->type != TT_EOF && parser->current->type != TT_ERROR)
+        *saveptr = strdup(parser->lexer.start);
     return result;
 }
 
@@ -33,20 +39,18 @@ static ast_t *dynamically_parse(parser_t *parser, const char **saveptr)
 */
 ast_t *parse_input_dynamic(const char *input)
 {
-    static const char *saveptr;
+    static char *saveptr = NULL;
     char *expanded_input;
     parser_t parser;
     ast_t *result;
 
-    saveptr = input ?: saveptr;
     parser_errno_set(PE_NONE);
-    expanded_input = preparse(input);
+    expanded_input = preparse(input ?: saveptr);
     if (expanded_input == NULL)
         return NULL;
     parser_init(&parser, expanded_input);
     result = dynamically_parse(&parser, &saveptr);
     parser_term(&parser);
-    free(expanded_input);
     if (P_ERRNO == PE_NONE)
         return result;
     ast_delete(result);
