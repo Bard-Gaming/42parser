@@ -39,7 +39,7 @@ Test(test_basic, whitespace_input)
 Test(test_basic, weird_character)
 {
     ast_t *ast;
-    const char *input = "e";
+    const char *input = "*";
 
     ast = parse_input(input);
     cr_assert_neq(ast, NULL);
