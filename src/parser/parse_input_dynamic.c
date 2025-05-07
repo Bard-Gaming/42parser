@@ -52,6 +52,7 @@ ast_t *parse_input_dynamic(const char *input)
     parser_init(&parser, expanded_input);
     result = dynamically_parse(&parser, &saveptr);
     parser_term(&parser);
+    free(expanded_input);
     if (P_ERRNO == PE_NONE)
         return result;
     ast_delete(result);
