@@ -16,16 +16,14 @@ static ast_t *dynamically_parse(parser_t *parser, char **saveptr)
 {
     ast_t *result;
 
+    while (parser->current->type == TT_SEPARATOR)
+        parser_next(parser);
     if (parser->current->type == TT_EOF) {
         free(*saveptr);
         *saveptr = NULL;
         return NULL;
     }
-    while (parser->current->type == TT_SEPARATOR)
-        parser_next(parser);
     result = parse_statement(parser);
-    while (parser->current->type == TT_SEPARATOR)
-        parser_next(parser);
     free(*saveptr);
     *saveptr = strdup(parser->lexer.start);
     return result;
