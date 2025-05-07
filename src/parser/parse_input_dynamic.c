@@ -16,15 +16,18 @@ static ast_t *dynamically_parse(parser_t *parser, char **saveptr)
 {
     ast_t *result;
 
+    if (parser->current->type == TT_EOF) {
+        free(*saveptr);
+        *saveptr = NULL;
+        return NULL;
+    }
     while (parser->current->type == TT_SEPARATOR)
         parser_next(parser);
     result = parse_statement(parser);
     while (parser->current->type == TT_SEPARATOR)
         parser_next(parser);
     free(*saveptr);
-    *saveptr = NULL;
-    if (parser->current->type != TT_EOF && parser->current->type != TT_ERROR)
-        *saveptr = strdup(parser->lexer.start);
+    *saveptr = strdup(parser->lexer.start);
     return result;
 }
 
@@ -54,5 +57,7 @@ ast_t *parse_input_dynamic(const char *input)
     if (P_ERRNO == PE_NONE)
         return result;
     ast_delete(result);
+    free(saveptr);
+    saveptr = NULL;
     return NULL;
 }
