@@ -77,22 +77,32 @@ static void add_var(ast_argument_t *arg, const char *start, const char *end)
     node->data = strndup(start, end - start);
 }
 
-static bool parse_special_variable(ast_argument_t *arg,
+static bool parse_special_variable(char var, ast_argument_t *arg,
     const char **current, const char *end)
 {
     size_t remaining = end - *current;
+    char bracket_var[3] = { '{', var, '}' };
 
-    if (remaining >= 1 && **current == '?') {
+    if (remaining >= 1 && **current == var) {
         add_var(arg, *current, *current + 1);
         (*current)++;
         return true;
     }
-    if (remaining >= 3 && strncmp(*current, "{?}", 3) == 0) {
+    if (remaining >= 3 && strncmp(*current, bracket_var, 3) == 0) {
         add_var(arg, *current + 1, *current + 2);
         *current += 3;
         return true;
     }
     return false;
+}
+
+static bool has_parsed_special_variable(ast_argument_t *arg,
+    const char **current, const char *end)
+{
+    return
+        parse_special_variable('?', arg, current, end) ||
+        parse_special_variable('#', arg, current, end) ||
+        parse_special_variable('*', arg, current, end);
 }
 
 static void parse_variable(ast_argument_t *arg,
@@ -102,7 +112,7 @@ static void parse_variable(ast_argument_t *arg,
     bool is_bracket = false;
 
     (*current)++;
-    if (parse_special_variable(arg, current, end))
+    if (has_parsed_special_variable(arg, current, end))
         return;
     if (**current != '{' && !is_variable_char(**current))
         return ast_argument_add_char(arg, '$');

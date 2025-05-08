@@ -56,10 +56,30 @@ Test(test_variables, bracket_variable)
     cr_assert_eq(P_ERRNO, PE_NONE);
 }
 
-Test(test_variables, special_variable)
+Test(test_variables, special_variable_1)
 {
     ast_t *ast;
     const char *input = "echo $?";
+
+    ast = parse_input(input);
+    cr_assert_neq(ast, NULL);
+    cr_assert_eq(P_ERRNO, PE_NONE);
+}
+
+Test(test_variables, special_variable_2)
+{
+    ast_t *ast;
+    const char *input = "echo $#";
+
+    ast = parse_input(input);
+    cr_assert_neq(ast, NULL);
+    cr_assert_eq(P_ERRNO, PE_NONE);
+}
+
+Test(test_variables, special_variable_3)
+{
+    ast_t *ast;
+    const char *input = "echo $*";
 
     ast = parse_input(input);
     cr_assert_neq(ast, NULL);
