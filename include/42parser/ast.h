@@ -165,6 +165,7 @@ void ast_delete_binop_data(void *data);
 void ast_delete_conditional_data(void *data);
 void ast_redirect_delete(ast_redirect_t *redirect);
 void ast_while_loop_delete(ast_while_loop_t *data);
+void ast_foreach_loop_delete(ast_foreach_loop_t *loop);
 
 // Node buffer:
 ast_node_buffer_t *ast_node_buffer_create(void);

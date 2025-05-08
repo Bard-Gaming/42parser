@@ -38,6 +38,7 @@ SRC_FILES =	src/ast/argument/ast_argument_add_char.c					\
 			src/ast/ast_create.c										\
 			src/ast/ast_delete.c										\
 			src/ast/ast_delete_binop_data.c								\
+			src/ast/ast_foreach_loop_delete.c							\
 			src/ast/ast_print.c											\
 			src/ast/ast_redirect_delete.c								\
 			src/ast/ast_strtype.c										\
