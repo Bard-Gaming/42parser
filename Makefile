@@ -71,6 +71,7 @@ SRC_FILES =	src/ast/argument/ast_argument_add_char.c					\
 			src/parser/implementation/parse_command.c					\
 			src/parser/implementation/parse_compound.c					\
 			src/parser/implementation/parse_condition.c					\
+			src/parser/implementation/parse_foreach_loop.c				\
 			src/parser/implementation/parse_if_statement.c				\
 			src/parser/implementation/parse_pipeline.c					\
 			src/parser/implementation/parse_program.c					\
@@ -108,6 +109,7 @@ TEST_SRC =	tests/syntax/test_basic.c									\
 			tests/syntax/test_commands.c								\
 			tests/syntax/test_compounds.c								\
 			tests/syntax/test_conditionals.c							\
+			tests/syntax/test_foreach_loops.c							\
 			tests/syntax/test_operations.c								\
 			tests/syntax/test_pipes.c									\
 			tests/syntax/test_redirections.c							\
