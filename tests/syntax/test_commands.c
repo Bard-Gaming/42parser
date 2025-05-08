@@ -81,6 +81,16 @@ Test(test_commands, format_string)
     cr_assert_eq(P_ERRNO, PE_NONE);
 }
 
+Test(test_commands, arg_raw_string)
+{
+    ast_t *ast;
+    const char *input = "set a='value'";
+
+    ast = parse_input(input);
+    cr_assert_neq(ast, NULL);
+    cr_assert_eq(P_ERRNO, PE_NONE);
+}
+
 Test(test_commands, backslash)
 {
     ast_t *ast;
