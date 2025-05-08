@@ -139,7 +139,7 @@ Test(test_commands, unmatched_raw_string)
 Test(test_commands, unmatched_format_string)
 {
     ast_t *ast;
-    const char *input = "echo \"hello";
+    const char *input = "echo abs\"hello";
 
     ast = parse_input(input);
     cr_assert_eq(ast, NULL);
