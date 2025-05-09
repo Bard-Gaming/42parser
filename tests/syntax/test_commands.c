@@ -145,3 +145,13 @@ Test(test_commands, unmatched_format_string)
     cr_assert_eq(ast, NULL);
     cr_assert_eq(P_ERRNO, PE_UNMATCHED_FORMAT_STRING);
 }
+
+Test(test_commands, escaped_format_string)
+{
+    ast_t *ast;
+    const char *input = "echo abs\"hello\\\" bobby";
+
+    ast = parse_input(input);
+    cr_assert_eq(ast, NULL);
+    cr_assert_eq(P_ERRNO, PE_UNMATCHED_FORMAT_STRING);
+}

@@ -35,13 +35,24 @@ static bool unmatched_quote_error(char quote)
     return false;
 }
 
+static bool is_escape(const lexer_t *lexer)
+{
+    return
+        *lexer->current == '\\' &&
+        *(lexer->current + 1) != '\n' &&
+        *(lexer->current + 1) != '\0';
+}
+
 static bool add_subargument(lexer_t *lexer)
 {
     char quote = *lexer->current;
 
     lexer->current++;
-    while (!is_subargument_end(lexer, quote))
+    while (!is_subargument_end(lexer, quote)) {
+        if (is_escape(lexer))
+            lexer->current++;
         lexer->current++;
+    }
     if (*lexer->current != quote)
         return unmatched_quote_error(quote);
     lexer->current++;
