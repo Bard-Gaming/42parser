@@ -71,7 +71,7 @@ static bool add_element(lexer_t *lexer)
 {
     if (is_quote(*lexer->current))
         return add_subargument(lexer);
-    if (*lexer->current == '\\' && *(lexer->current + 1) != '\0')
+    if (is_escape(lexer))
         lexer->current++;
     lexer->current++;
     return true;
