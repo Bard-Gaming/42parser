@@ -102,19 +102,19 @@ char *preparse(const char *input)
 }
 
 /*
-** Preparses the given input, except
-** that this won't expand the first
-** argument.
-** This is mainly used for expansion
-** recursion.
+** Expands a single pass of the given
+** input, skipping the expansion for
+** the given command if it appears as
+** first statement.
 */
-char *preparser_expand(const char *input)
+char *preparser_expand(const char *input, const char *command)
 {
     preparser_t preparser = { 0 };
 
     preparser_init(&preparser, input);
+    if (token_match(preparser.current, command))
+        preparser.has_arg = true;
     preparse_input(&preparser);
-    preparser.has_arg = true;
     if (P_ERRNO != PE_NONE) {
         free(preparser.output);
         preparser.output = NULL;
