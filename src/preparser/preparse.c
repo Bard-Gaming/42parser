@@ -100,3 +100,25 @@ char *preparse(const char *input)
     preparser_term(&preparser);
     return preparser.output;
 }
+
+/*
+** Preparses the given input, except
+** that this won't expand the first
+** argument.
+** This is mainly used for expansion
+** recursion.
+*/
+char *preparser_expand(const char *input)
+{
+    preparser_t preparser = { 0 };
+
+    preparser_init(&preparser, input);
+    preparse_input(&preparser);
+    preparser.has_arg = true;
+    if (P_ERRNO != PE_NONE) {
+        free(preparser.output);
+        preparser.output = NULL;
+    }
+    preparser_term(&preparser);
+    return preparser.output;
+}
