@@ -108,7 +108,7 @@ OBJ_FILES = $(SRC_FILES:.c=.o)
 
 TEST_NAME = unit_tests
 
-TEST_SRC =	tests/syntax/test_basic.c									\
+TST_FILES =	tests/syntax/test_basic.c									\
 			tests/syntax/test_commands.c								\
 			tests/syntax/test_compounds.c								\
 			tests/syntax/test_conditionals.c							\
@@ -120,7 +120,7 @@ TEST_SRC =	tests/syntax/test_basic.c									\
 			tests/syntax/test_variables.c								\
 			tests/syntax/test_while_loops.c								\
 
-.PHONY = all debug sanitize tests_run clean fclean re _no_repo
+.PHONY = all debug sanitize tests_run clean fclean re
 
 all: $(NAME)
 
@@ -139,7 +139,7 @@ sanitize: fclean $(NAME)
 tests_run: fclean $(NAME)
 tests_run: CFLAGS += -L. -lparse --coverage -lcriterion
 tests_run:
-	@$(CC) -o $(TEST_NAME) $(TEST_SRC) $(INCLUDE_DIRS) $(CFLAGS)
+	@$(CC) -o $(TEST_NAME) $(TST_FILES) $(INCLUDE_DIRS) $(CFLAGS)
 	@./$(TEST_NAME)
 
 clean:
@@ -154,9 +154,3 @@ fclean: clean
 	@rm -f $(NAME)
 
 re: fclean all
-
-_no_repo:
-	@rm -f README.md
-	@rm -f LICENSE
-	@rm -rf .git
-	@rm -rf tests
