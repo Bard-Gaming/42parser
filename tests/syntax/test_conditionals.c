@@ -122,20 +122,6 @@ Test(test_conditionals, complex_command_conditional)
     cr_assert_eq(P_ERRNO, PE_NONE);
 }
 
-Test(test_conditionals, if_stmnt_else_end)
-{
-    ast_t *ast;
-    const char *input =
-        "if ( a == a ) then\n"
-        "    echo bob\n"
-        "    echo test\n"
-        "else\n";  // this is valid syntax apparently. ask TCSH idk
-
-    ast = parse_input(input);
-    cr_assert_neq(ast, NULL);
-    cr_assert_eq(P_ERRNO, PE_NONE);
-}
-
 //////////////////////////////////////////////////
 //                                              //
 //                 FAILING TESTS                //
@@ -186,6 +172,20 @@ Test(test_conditionals, missing_endif)
         "if ( a == a ) then\n"
         "    echo bob\n"
         "    echo test\n";
+
+    ast = parse_input(input);
+    cr_assert_eq(ast, NULL);
+    cr_assert_eq(P_ERRNO, PE_MISSING_THEN_ENDIF);
+}
+
+Test(test_conditionals, if_stmnt_else_end)
+{
+    ast_t *ast;
+    const char *input =
+        "if ( a == a ) then\n"
+        "    echo bob\n"
+        "    echo test\n"
+        "else\n";
 
     ast = parse_input(input);
     cr_assert_eq(ast, NULL);
