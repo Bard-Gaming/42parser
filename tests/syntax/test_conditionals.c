@@ -48,6 +48,30 @@ Test(test_conditionals, test_conditional_else)
     cr_assert_eq(P_ERRNO, PE_NONE);
 }
 
+Test(test_conditionals, inline_if_stmnt)
+{
+    ast_t *ast;
+    const char *input =
+        "if ( a == b ) echo hi\n";
+
+    ast = parse_input(input);
+    cr_assert_neq(ast, NULL);
+    cr_assert_eq(P_ERRNO, PE_NONE);
+}
+
+Test(test_conditionals, inline_and_multiline_if_stmnt)
+{
+    ast_t *ast;
+    const char *input =
+        "if ( a == b ) then\n"
+        "    echo hi\n"
+        "else if (a == a) echo hi";
+
+    ast = parse_input(input);
+    cr_assert_neq(ast, NULL);
+    cr_assert_eq(P_ERRNO, PE_NONE);
+}
+
 Test(test_conditionals, complex_test_conditional)
 {
     ast_t *ast;
@@ -98,6 +122,20 @@ Test(test_conditionals, complex_command_conditional)
     cr_assert_eq(P_ERRNO, PE_NONE);
 }
 
+Test(test_conditionals, if_stmnt_else_end)
+{
+    ast_t *ast;
+    const char *input =
+        "if ( a == a ) then\n"
+        "    echo bob\n"
+        "    echo test\n"
+        "else\n";  // this is valid syntax apparently. ask TCSH idk
+
+    ast = parse_input(input);
+    cr_assert_neq(ast, NULL);
+    cr_assert_eq(P_ERRNO, PE_NONE);
+}
+
 //////////////////////////////////////////////////
 //                                              //
 //                 FAILING TESTS                //
@@ -131,6 +169,16 @@ Test(test_conditionals, unended_command_condition)
     cr_assert_eq(P_ERRNO, PE_IF_MISSING_BRACE);
 }
 
+Test(test_conditionals, empty_if)
+{
+    ast_t *ast;
+    const char *input = "if (a == b)\n";
+
+    ast = parse_input(input);
+    cr_assert_eq(ast, NULL);
+    cr_assert_eq(P_ERRNO, PE_IF_EMPTY_BODY);
+}
+
 Test(test_conditionals, missing_endif)
 {
     ast_t *ast;
@@ -138,20 +186,6 @@ Test(test_conditionals, missing_endif)
         "if ( a == a ) then\n"
         "    echo bob\n"
         "    echo test\n";
-
-    ast = parse_input(input);
-    cr_assert_eq(ast, NULL);
-    cr_assert_eq(P_ERRNO, PE_MISSING_THEN_ENDIF);
-}
-
-Test(test_conditionals, missing_endif_else)
-{
-    ast_t *ast;
-    const char *input =
-        "if ( a == a ) then\n"
-        "    echo bob\n"
-        "    echo test\n"
-        "else\n";
 
     ast = parse_input(input);
     cr_assert_eq(ast, NULL);
